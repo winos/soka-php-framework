@@ -1,4 +1,4 @@
-#Soka php Framework Desktop
+#Soka php Framework
 
 This is an open source framework in php to create a community driven version of soka php.
 
