@@ -1,0 +1,152 @@
+<!-- ver nomina -->
+<div class="formulario" id='view_nomina'>
+
+</div>
+<!-- informacion de transaccion-->
+<?php if (isset($messagge)):?>
+<div id ='info' title='Nomina.' redirec='nomina'>
+<p><span class="ui-icon ui-icon-info" style="float:left; margin:4px 7px 50px 0;">
+</span><?php echo $messagge['error'];?></p>
+<?php if(isset($messagge['causas'])): ?>
+<ul>
+<?php foreach ($messagge['causas'] as $value): ?>
+<span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 50px 0;">
+</span><?php echo $value;?>
+<?php endforeach; ?>
+</ul>
+<?php endif;?>
+</div>
+<?php endif; ?>
+<?php if (isset($messagge2)):?>
+	<div id ='info' title='Nomina.' redirec='nomina'>
+		<p><?php echo $messagge2['error'];?></p>
+	</div>
+<?php endif; ?>
+
+<div class="formulario">
+<div id="tabs">
+    <ul>
+        <li><a href="#admin">Administrar</a></li>
+        <li><a href="#crear">Crear</a></li>
+    </ul>
+
+	<div id="crear">
+		<form id="frm_Nomina" name="frm_Nomina" method="post" action="">
+		    <fieldset>
+				<legend>Registrar Nómina</legend>
+				<div>
+					<label>Tipo Nomina<em>*</em> </label>
+					<select name="tipo_empleado" id="cbo_tipo_nomina">
+						<option value="0">seleccionar</option>
+						<option value="1">Administrativa</option>
+						<option value="2">Obrera</option>
+					</select>
+				</div>
+
+				<div id='proyectos'>
+					<label>Proyecto<em>*</em> </label>
+					<?php echo $combo; ?>
+				</div>
+
+				<div>
+					<label>Fecha inicio<em>*</em> </label>
+					<input type="text" class="fecha" name="fecha_inicio" value="<?php echo isset($con->fecha_elaboracion) ? $con->fecha_elaboracion : ''?>"  id='fecha_inicio'/>
+				</div>
+
+				<div>
+					<label>Fecha fin <em>*</em> </label>
+					<input type="text" class="fecha" name="fecha_fin" value="<?php echo isset($con->fecha_elaboracion) ? $con->fecha_elaboracion : ''?>"required  id='fecha_fin'/>
+				</div>
+
+				<input type='submit' name="submit" id='guardar' class='btn info' value="Guardar"/>
+			</fieldset>
+		</form>
+	</div>
+	<div id="admin">
+		<form name="busqueda" method="post"  action="">
+		<fieldset>
+		<legend id="ad" style="cursor:pointer;">administrar Nómina </legend>
+		<div class="busqueda">
+			<!-- lista para item de busquedad-->
+			<ul>
+			<li>
+			<label><em>Filtrar por:</em></label>
+				<select name="cbo_busqueda" id="cbo_busqueda" required>
+					<option value="fecha_elaboracion">Fecha</option>
+				</select>
+
+				<input type="text" name="txt_buscar" id="txt_buscar"  />
+			</li>
+			<li>
+				<input name="btn_buscar" type="submit" class='btn info' value="Buscar" />
+			</li>
+		</ul>
+		</div>
+		<table id="sorter_com" class="tablesorter">
+<table id="sorter" class="tablesorter">
+<thead>
+<th>nombre</th><th>fecha inicio</th><th>fecha fin</th><th>Estado</th><th colspan="2">accion</th>
+</thead>
+<?php if(isset($datos)): ?>
+	<?php foreach($datos as $nomina):?>
+	<tr>
+		<!-- <a href="" data-id ='<?php echo $nomina['id'];  ?>' class='nomina_detalle'><span class='label important'><?php echo $nomina['nombre']; ?></span></a> -->
+		<td>
+			<a href="<?php echo base_url(); ?>nomina/viewReportToMysql/<?php echo $nomina['id'];  ?>"><span class='label success'><?php echo $nomina['nombre']; ?></span></a>
+		</td>
+		<td><?php echo $nomina['fecha_inicio']; ?> </td>
+		<td><?php echo $nomina['fecha_fin']; ?></td>
+		<?php $est =   ($nomina['estado'] == 1) ? 'activo': 'inactivo'; ?>
+		<?php $titulo= ($nomina['estado'] == 1) ? 'Eliminar': 'Activar'; ?>
+		<?php $ti= ($nomina['estado'] == 1) ? 'Modificar': 'Inabilitado'; ?>
+		<td>
+			<?php echo $est;?>
+			<?php $ico=($est=='activo')? 'mano':''; ?>
+		</td>
+		<td>
+		<!--genero la img on/off de acuerdo a lo que evalue $est-->
+		<img src="<?php echo base_url(); ?>public/images/Icono/<?php echo $est;?>.png" 
+		class="icono mano" 
+		onclick="action('del', '<?php echo $nomina['id']; ?>', 'nomina','Nomina');" 
+		title="Eliminar"/>
+		</td>
+	</tr>
+	<?php endforeach; ?>
+<?php endif; ?>
+</table>
+
+<!-- test pager-->
+<div id="pager">
+			<ul id='grid_pager_action' class='list'>
+				<li>
+					<img src="<?php echo base_url(); ?>public/images/Icono/first.png" class="first"/> 
+				</li>
+				<li>
+					<img src="<?php echo base_url(); ?>public/images/Icono/prev.png" class="prev"/> 
+				</li>
+				<li>
+					<input type="text" class="pagedisplay" id='page' />
+				</li>
+				<li>
+					<img src="<?php echo base_url(); ?>public/images/Icono/next.png" class="next"/>
+				</li>
+				<li>
+					<img src="<?php echo base_url(); ?>public/images/Icono/last.png" class="last"/>
+				</li>
+				<li>
+					<select class="pagesize" id='page' >
+						<option selected="selected"  value="10">10</option>
+						<option value="20">20</option>
+						<option value="30">30</option>
+						<option  value="40">40</option>
+					</select>
+				</li>
+			</ul>
+		</div>
+		<!-- fin pager-->
+	</fieldset>
+	</form>
+	</div> <!-- fin admin-->
+</div>
+<!--</form>-->
+</div>

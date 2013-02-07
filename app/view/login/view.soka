@@ -1,0 +1,9 @@
+
+<div class='well'>
+    <?php //$obj = unserialize($); ?>
+    <pre><?php echo print_r($_SESSION, TRUE); ?></pre>
+    <?php //echo $object->username(); ?>
+   <?php //echo print_r($object); ?>
+    id: <?php echo $var[4]; ?>| UserName: <?php echo $var[0];?> | password : <?php echo $var[1]; ?>
+    | autenticado : <?php echo $var[2];  ?> | nivel: <?php echo $var[3] ?> 
+</div>

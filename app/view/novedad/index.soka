@@ -1,0 +1,190 @@
+<!-- informacion de transaccion-->
+<?php if (isset($messagge)):?>
+<div id ='info' title='Novedad.' redirec='novedad'>
+<p><span class="ui-icon ui-icon-info" style="float:left; margin:4px 7px 50px 0;">
+</span><?php echo $messagge['error'];?></p>
+<?php if(isset($messagge['causas'])): ?>
+<ul>
+<?php foreach ($messagge['causas'] as $value): ?>
+<span class="ui-icon ui-icon-circle-check" style="float:left; margin:0 7px 50px 0;">
+</span><?php echo $value;?>
+<?php endforeach;?>
+</ul>
+<?php endif;?>
+</div>
+<?php endif;?>
+
+<?php if (isset($messagge2)):?>
+	<div id ='info' title='Novedad.' redirec='novedad'>
+		<p><?php echo $messagge2['error'];?></p>
+	</div>
+<?php endif;?>
+
+
+<div class="formulario">
+<div id="tabs">
+    <ul>
+        <li><a href="#admin">Administrar</a></li>
+        <li><a href="#crear">Crear</a></li>
+    </ul>
+  
+	<div id="crear">
+		<form id="frm_novedad" name="frm_novedad" method="post" action="">
+		<fieldset>
+		<legend>Registrar Novedad</legend>
+		<input type="hidden" name="id" value="<?php echo isset($con->id) ? $con->id : 0; ?>"required  />
+		<div>
+
+		<!--<div>
+			<label>Nombre<em>(Texto) *</em></label>
+			<!--pattern ="^[a-zA-Z]+$" :exrepsion regular para validar solo caracteres-->
+		<!--<input type="text" 
+				   name="nombre" 
+				   pattern ="^[a-zA-Z '']+$"
+				   value="<?php //echo isset($con->nombre) ? $con->nombre : ''?>"
+				   autofocus 
+				   maxlength="30" required/>
+		</div>-->		
+		<div>
+			<label>Novedad<em>*</em></label>
+			<?php echo $list_nove; ?>
+		</div>
+		<div>
+			<label>Fecha Inicial<em>(Texto) *</em></label>
+			<!--pattern ="^[a-zA-Z]+$" :exrepsion regular para validar solo caracteres-->
+			<input type="text" 
+				   name="fecha_inicial" 
+				   value="<?php echo isset($con->fecha_inicial) ? $con->fecha_inicial : ''?>"
+				   autofocus 
+				   maxlength="30" required class='fecha'/>
+		</div>	
+
+
+		<div>
+			<label>Fecha Termino<em>(Texto) </em></label>
+			<!--pattern ="^[a-zA-Z]+$" :exrepsion regular para validar solo caracteres-->
+			<input type="text" 
+				   name="fecha_termino" 
+				   value="<?php echo isset($con->fecha_termino) ? $con->fecha_termino : ''?>"
+				   autofocus 
+				   maxlength="30" class='fecha'/>
+		</div>	
+
+		<div>
+			<label>Descripción<em>(Texto) </em></label>
+			<!--pattern ="^[a-zA-Z]+$" :exrepsion regular para validar solo caracteres-->
+			<textarea name="descripcion" id="descripcion">
+				<?php echo isset($con->descripcion) ? $con->descripcion : ''?>"
+			</textarea>
+		</div>
+
+		<!--<div>
+			<div>
+			<label>Trabajador<em><a href='<?php echo base_url()?>trabajador'>(Crear nuevo)</a></em></label>
+			<?php echo $list_trabajador; ?>
+		</div>-->
+		<div>
+				<label>Trabajador<em>*</em></label>
+				<input type="text" id="trabajador_id">
+				</div>
+
+		<div>
+			<div>
+			<label>Tipo Novedad<em><a href='<?php echo base_url()?>tiponovedad'>(Crear nuevo)</a>*</em></label>
+			<?php echo $list_tiponovedad; ?>
+		</div>
+
+		<input type='submit' name="submit" id='guardar' class='btn info' value="Guardar"/>
+		</fieldset>
+		</form>
+	</div>
+	<div id="admin">
+
+		<form id="frm_novedad" name="frm_novedad" method="post" action="">
+		<fieldset>
+		<legend>Novedades</legend>
+
+<div class="busqueda">
+			<!-- lista para item de busquedad-->
+			<ul>
+				<li>
+					<label>Nombre<em>(texto)*</em></label>
+					<!--pattern ="^[a-zA-Z]+$" :exrepsion regular para validar solo caracteres-->
+					<input type="text" name="txt_buscar" id="txt_buscar"  pattern ="^[a-zA-Z]+$"/>
+				</li>
+				<li>
+					<input name="btn_buscar" type="submit" class='btn info' value="buscar" />
+				</li>
+			</ul>
+		</div>
+
+		<table id="sorter" class="tablesorter">
+		<thead>
+		<th>Nombre</th><th>Fecha Inicial</th><th>Fecha Termino</th><th>Descripción</th><th>Estado</th><th>Trabajador</th><th>Tipo Novedad</><th colspan='2'>Acción</th>
+		</thead>
+		<?php if(isset($datos)): ?>
+			<?php foreach($datos as $nov):?>
+			<tr>
+				<td><?php echo $nov['nombre']; ?></td>
+				<td><?php echo $nov['fecha_inicial']; ?></td>
+				<td><?php echo $nov['fecha_inicial']; ?></td>
+				<td><?php echo $nov['descripcion']; ?></td>
+				<?php $est =   ($nov['estado'] == 1) ? 'activo': 'inactivo'; ?>
+			      <td>
+			         <?php echo $est;?>
+			         <?php $ico=($est=='activo')? 'mano':''; ?>
+			      </td>
+				<td><?php echo $nov['trabajador'];?></td>
+				<td><?php echo $nov['tiponovedad']; ?></td>
+        <?php $titulo= ($nov['estado'] == 1) ? 'Eliminar': 'Activar'; ?>
+        <?php $ti= ($nov['estado'] == 1) ? 'Modificar': 'Inabilitado'; ?>
+      <td>
+         
+         
+         <!-- en el atributo title comenzar Capitalizar-->
+         <img src="<?php echo base_url(); ?>public/images/Icono/pencil.png" 
+         onclick="action('up', <?php echo $nov['id']; ?>, 'novedad')" 
+
+         class="icono" 
+         title="Actualizar"/>
+      </td>
+      <td>
+			<!--genero la img on/off de acuerdo a lo que evalue $est-->
+			<img src="<?php echo base_url(); ?>public/images/Icono/<?php echo $est;?>.png" 
+			class="icono mano" 
+			onclick="action('del', <?php echo $nov['id']; ?>, 'novedad','Novedad. '  )" 
+			title='<?php echo $titulo; ?>'/>
+			</td>
+	</tr>
+	<?php endforeach; ?>
+<?php endif; ?>
+</table>
+
+		<!-- test pager-->
+
+		<div id="pager">
+			
+					<img src="<?php echo base_url(); ?>public/images/Icono/first.png" class="first"/> 
+					<img src="<?php echo base_url(); ?>public/images/Icono/prev.png" class="prev"/> 
+					<input type="text" class="pagedisplay"/>
+						<img src="<?php echo base_url(); ?>public/images/Icono/next.png" class="next"/>
+					<img src="<?php echo base_url(); ?>public/images/Icono/last.png" class="last"/>
+					<select class="pagesize">
+						<option selected="selected"  value="10">10</option>
+						<option value="20">20</option>
+						<option value="30">30</option>
+						<option  value="40">40</option>
+					</select>
+			</div>
+		<!-- fin pager-->
+	</fieldset>
+	</form>
+	</div> <!-- fin admin-->
+</div>
+<!--</form>-->
+</div>
+
+	
+
+
+

@@ -1,0 +1,4 @@
+
+		<footer class="rounded">
+			Copyright &copy <?php echo date('Y'); ?>  <?php echo (isset($footer)? $footer :'Pewol macro s.a.s ') ?>
+		</footer>

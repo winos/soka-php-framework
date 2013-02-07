@@ -1,0 +1,25 @@
+<!DOCTYPE>
+<html lang="<?php echo \com\soka\Config::$LANGUAGE_APP; ?>">
+    <head>
+        <meta charset="<?php echo \com\soka\Config::$CHARSET_APP;?>" />
+        <title><?php echo isset($page_title) ? $page_title : 'Index > Soka::PHP Framework'; ?></title>
+        <!-- Load External CSS, Javascript Files-->
+        <script src="<?php echo  $data_layout['js_default']['jquery']; ?>"></script>
+        <script src="<?php echo  $data_layout['js_default']['ajax']; ?>"></script>
+        <!-- include file javaScript user -->
+        <?php if(count($data_layout['js_include'])): ?>
+        <?php foreach ($data_layout['js_include'] as $value) :?>
+        <script  src="<?php echo $value;?>" ></script>
+        <?php endforeach ;?>
+        <?php endif; ?>
+        <!-- include file Css user -->
+        <?php if(count($data_layout['css_include'])): ?>
+        <?php foreach ($data_layout['css_include'] as $value) :?>
+        <link rel="stylesheet" href= "<?php echo $value; ?>" media="screen"  />
+        <?php endforeach ;?>
+        <?php endif; ?>
+    </head>
+    <body>
+    	<?php com\soka\View::content(); ?>    
+    </body>
+</html>

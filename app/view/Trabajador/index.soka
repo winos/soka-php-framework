@@ -1,0 +1,284 @@
+<?php if (isset($messagge)):?>
+<div id ='info' title='Trabajador.' redirec='trabajador'>
+<p><span class="ui-icon ui-icon-info" style="float:left; margin:4px 7px 50px 0;">
+</span><?php echo $messagge['error'];?></p>
+<?php if(isset($messagge['causas'])): ?>
+<ul>
+<?php foreach ($messagge['causas'] as $value): ?>
+<span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 50px 0;">
+</span><?php echo $value;?>
+<?php endforeach; ?>
+</ul>
+<?php endif;?>
+</div>
+<?php endif; ?>
+<?php if (isset($messagge2)):?>
+   <div id ='info' title='Trabajador.' redirec='trabajador'>
+      <p><?php echo $messagge2['error'];?></p>
+   </div>
+<?php endif; ?>
+
+<div class="formulario">
+<div id="tabs">
+    <ul>
+       <li><a href="#admin">Administrar</a></li>
+        <li><a href="#crear">Crear</a></li>
+
+    </ul>
+  
+      <div id="crear">
+            <form id="SignupForm" name="frm_trabajador" method="post" action="">
+               <div id="fieldWrapper">
+               <fieldset class="step" id="personales">
+                  <legend class="step_header">registrar Trabajador</legend>
+                  <input type="hidden" name="id" value="<?php echo isset($con->id) ? $con->id : 0; ?>"required  />
+
+                  <div>
+                  <label>Tipo Documento<em>*</em></label>
+                  <select name="documento" id="cbo_documento" required   autofocus >
+                     <option value="Cedula de ciudadania">C.C</option>
+                     <option value="Cedula extranjera">C.E</option>
+                     <option value="Pasaporte">Pasaporte</option>
+                  </select>
+                  <div>
+                     <label id="label" name="label">Número Identidad<em>(Numerico)*</em> </label>
+                     <input type="text" 
+                     name="numero_identidad" 
+                     pattern ="^[0-9]+$"
+                     value="<?php echo isset($con->numero_identidad) ? $con->numero_identidad : ''?>"
+                     class='num'
+                     maxlength="11"
+                     autofocus required/>
+                  </div>
+
+                  <div>
+                  <label>Primer Nombre<em>(Texto)*</em></label>
+                  <input type="text" 
+                  name="primer_nombre" 
+                  pattern ="^[A-Za-zñÑ\s '']+$"
+                  value="<?php echo isset($con->primer_nombre) ? $con->primer_nombre : ''?>"
+                  maxlength="50" required/>
+                  </div>
+                  <div>
+                  <label>Segundo Nombre<em>(Texto)</em></label>
+                  <input type="text" 
+                  name="segundo_nombre" 
+                  pattern ="^[A-Za-zñÑ\s]+$"
+                  value="<?php echo isset($con->segundo_nombre) ? $con->segundo_nombre : ''?>"
+                
+                  maxlength="50">
+                  </div>
+                  <div>
+                  <label>Primer Apellido<em>(Texto)*</em></label>
+                  <input type="text" 
+                  name="primer_apellido" 
+                  pattern ="^[A-Za-zñÑ\s '']+$"
+                  value="<?php echo isset($con->primer_apellido) ? $con->primer_apellido : ''?>"
+                 
+                  maxlength="50" required/>
+                  </div>
+                  <div>
+                  <label>Segundo Apellido<em>(Texto)</em></label>
+                  <input type="text" 
+                  name="segundo_apellido" 
+                  pattern ="^[A-Za-zñÑ\s]+$"
+                  value="<?php echo isset($con->segundo_apellido) ? $con->segundo_apellido : ''?>"
+               
+                  maxlength="50">
+                  </div>
+
+                  </div>
+
+                  <div>
+                     <label>Sexo<em>*</em></label>
+                     <select name="sexo" id="cbo_sexo"  value="<?php echo isset($con->sexo) ? $con->sexo : ''?>"required>
+                     <option value="Masculino">Masculino</option>
+                     <option value="Femenino">Femenino</option>
+                  </select>
+
+                  </div>
+
+                  <div>
+                  <label id="label" name="label">Número de hijos<em>(Numero positivo)</em> </label>
+                  <input type="text" 
+                  name="numero_hijos" 
+                  pattern ="^[0-9]+$"
+                  value="<?php echo isset($con->numero_hijos) ? $con->numero_hijos : ''?>"
+                  class='num'
+                  >
+                  </div>
+
+               </fieldset>
+             <fieldset>
+<legend>Proyecto</legend>
+<div>
+                  <label>Proyecto<em><a href='<?php echo base_url()?>proyecto'>(crear nuevo)</a>*</em></label>
+                  <?php echo $list_proyecto; ?>
+                  </div>
+             </fieldset>
+                <fieldset>
+               <legend>Cargo</legend>
+               <div>
+                  <label>Cargo<em><a href='<?php echo base_url()?>cargo'>(crear nuevo)</a>*</em></label>
+                  <?php echo $list_cargo; ?>
+                  </div>
+             </fieldset>
+              
+           <fieldset>
+
+               <legend>registrar Contrato</legend>
+               <input type="hidden" name="id" value="<?php echo isset($con->id) ? $con->id : 0; ?>"required  />
+               <div>
+
+               <div>
+               <label>Fecha Ingreso<em>*</em> </label>
+               <input type="text" name="fecha_ingreso" value="<?php echo isset($con->fecha_ingreso) ? $con->fecha_ingreso : ''?>"required class='fecha' />
+               </div>
+
+               <div>
+               <label>Fecha fin<em>*</em> </label>
+               <input type="text" name="fecha_fin" 
+               value="<?php echo isset($con->fecha_fin) ? $con->fecha_fin : ''?>"
+               required class='fecha' />
+               </div>
+
+
+               <div>
+               <label>Sueldo<em>*(Numerico)</em> </label>
+               <input type="text" 
+               name="sueldo" 
+               pattern ="^[0-9]+$"
+               value="<?php echo isset($con->sueldo) ? $con->sueldo : ''?>"
+               class='num'
+               required/>
+               </div>
+               <div>
+
+               <div>
+               <label>Tipo Contrato</label>
+               <?php echo $list_tipocontrato; ?>
+               </div>
+
+               </fieldset>
+               <fieldset>
+                  <legend>Administrativas</legend>
+
+
+                  <div>
+                     <label>Salud<em>*</em></label>
+                     <?php echo $list_administrativa1; ?>
+                     </div>
+                     <div>
+                     <label>Pensión<em>*</em></label>
+                     <?php echo $list_administrativa2; ?>
+                  </div>
+               </fieldset>
+              <input type='submit' name="submit" id='guardar' class='btn info' value="Guardar"/> 
+             <input type='reset' name="submit" id='guardar' class='btn info' value="Cancelar"/> 
+               </div>     
+            </form>
+            </div>
+
+      
+   <div id="admin">
+      <form name="busqueda" method="post"  action="">
+      <fieldset>
+      <legend id="ad" style="cursor:pointer;">Trabajador</legend>
+      <div class="busqueda">
+         <!-- lista para item de busquedad-->
+         <ul>
+         <li>
+         <label><em>Filtrar por:</em></label>
+            <select name="cbo_busqueda" id="cbo_busqueda" required>
+               <option value="numero_identidad">Nº Identificación</option>
+               <option value="primer_nombre">Primer nombre</option>
+            </select>
+
+            <input type="text" name="txt_buscar" id="txt_buscar"  />
+         </li>
+         <li>
+            <input name="btn_buscar" type="submit" class='btn info' value="Buscar" />
+         </li>
+      </ul>
+      </div>
+      <table id="sorter_tra" class="tablesorter">
+<thead>
+<th>documento</th><th>numero identidad</th><th>Primer nombre</th><th>Segundo nombre</th><th>primer apellido</th>
+<th>segundo apellido</th><th>sexo</th><th>numero hijos</th><th>Estado</th>
+<th colspan="2">acción</th>
+</thead>
+<?php if(isset($datos)): ?>
+
+   <?php foreach($datos as $trab):?>
+   <tr>
+      <td><?php echo $trab['documento']; ?></td>
+      <td><?php echo $trab['numero_identidad']; ?></td>
+      <td><?php echo $trab['primer_nombre']; ?></td>
+      <td><?php echo $trab['segundo_nombre']; ?></td>
+      <td><?php echo $trab['primer_apellido']; ?></td>
+      <td><?php echo $trab['segundo_apellido']; ?></td>
+      <td><?php echo $trab['sexo']; ?></td>
+      <td><?php echo $trab['numero_hijos']; ?></td>
+   
+       <?php $est =   ($trab['estado'] == 1) ? 'activo': 'inactivo'; ?>
+      <?php $titulo= ($trab['estado'] == 1) ? 'Eliminar': 'Activar'; ?>
+      <?php $ti= ($trab['estado'] == 1) ? 'Modificar': 'Inabilitado'; ?>
+      <td>
+         <?php echo $est;?>
+         <?php $ico=($est=='activo')? 'mano':''; ?>
+      </td>
+      <td>         
+         <!-- en el atributo title comenzar Capitalizar-->
+         <img src="<?php echo base_url(); ?>public/images/Icono/pencil.png" 
+         onclick="action('up', <?php echo $trab['id']; ?>, 'trabajador')" 
+         class="icono <?php echo $ico; ?>" 
+         title='<?php echo $ti; ?>'/>
+      </td>
+      <td>
+         <!--genero la img on/off de acuerdo a lo que evalue $est-->
+         <img src="<?php echo base_url(); ?>public/images/Icono/<?php echo $est;?>.png" 
+         class="icono mano" 
+         onclick="action('del', <?php echo $trab['id']; ?>, 'trabajador','trabajador. '  )" 
+         title='<?php echo $titulo; ?>'/>
+         </td>
+   
+   </tr>
+   <?php endforeach; ?>
+<?php endif; ?>
+</table>
+
+<!-- test pager-->
+<div id="pager">
+         <ul id='grid_pager_action' class='list'>
+            <li>
+               <img src="<?php echo base_url(); ?>public/images/Icono/first.png" class="first"/> 
+            </li>
+            <li>
+               <img src="<?php echo base_url(); ?>public/images/Icono/prev.png" class="prev"/> 
+            </li>
+            <li>
+               <input type="text" class="pagedisplay"/>
+            </li>
+            <li>
+               <img src="<?php echo base_url(); ?>public/images/Icono/next.png" class="next"/>
+            </li>
+            <li>
+               <img src="<?php echo base_url(); ?>public/images/Icono/last.png" class="last"/>
+            </li>
+            <li>
+               <select class="pagesize" id="page" name="page">
+                  <option selected="selected"  value="10">10</option>
+                  <option value="20">20</option>
+                  <option value="30">30</option>
+                  <option  value="40">40</option>
+               </select>
+            </li>
+         </ul>
+      </div>
+      <!-- fin pager-->
+   </fieldset>
+   </form>
+   </div> <!-- fin admin-->
+</div>
+<!--</form>-->
+</div>

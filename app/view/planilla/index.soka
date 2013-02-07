@@ -1,0 +1,146 @@
+<!-- informacion de transaccion-->
+<?php if (isset($messagge)):?>
+<div id ='info' title='Planilla.' redirec='planilla'>
+<p><span class="ui-icon ui-icon-info" style="float:left; margin:4px 7px 50px 0;">
+</span><?php echo $messagge['error'];?></p>
+<?php if(isset($messagge['causas'])): ?>
+<ul>
+<?php foreach ($messagge['causas'] as $value): ?>
+<span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 50px 0;">
+</span><?php echo $value;?>
+<?php endforeach; ?>
+</ul>
+<?php endif;?>
+</div>
+<?php endif; ?>
+<?php if (isset($messagge2)):?>
+	<div id ='info' title='Planilla.' redirec='planilla'>
+		<p><?php echo $messagge2['error'];?></p>
+	</div>
+<?php endif; ?>
+
+<div class="formulario">
+<div id="tabs">
+    <ul>
+        <li><a href="#admin">Administrar</a></li>
+        <li><a href="#crear">Crear</a></li>
+    </ul>
+  
+	<div id="crear">
+		<form id="frm_planilla" name="frm_planilla" method="post" action="">
+			<fieldset>
+				<legend>registrar Planilla</legend>
+				<div>
+				<input type="hidden" name="id"  value="<?php echo isset($con->id) ? $con->id : 0; ?>"required  />
+				<div>
+				<label>Hora entrada<em>*</em> </label>
+				<input type="text" 
+				name="entrada" 
+				value="<?php echo isset($con->entrada) ? $con->entrada : ''?>"
+				required   class='hora' placeholder='07:00' pattern="([0-9]{2})+\:+([0-9]{2})" />
+				</div>
+
+				<div>
+				<label>Hora salida<em>*</em> </label>
+				<input type="text" name="salida" 
+					value="<?php echo isset($con->salida) ? $con->salida : ''?>"
+					required  class='hora2' placeholder='15:00' pattern="([0-9]{2})+\:+([0-9]{2})" />
+				</div>
+
+				<div>
+				<label>Fecha<em>*</em> </label>
+				<input type="text" 
+				name="fecha" value="<?php echo isset($_trapla->fecha) ? $_trapla->fecha : ''?>" 
+				required  class='fecha' pattern="([0-9]{4})+\-+([0-9]{2})+\-+([0-9]{2})"
+				placeholder='año-dia-mes'/>
+				</div>
+	
+
+				<div>
+				<label>Trabajador<em>*</em></label>
+				<input type="text" id="trabajador_id">
+				</div>
+				<input type="hidden" id='trabajador' name='trabajador' value=''>
+				<input type='submit' name="submit" id='guardar' class='btn info' value="Guardar"/>
+			</fieldset>
+		</form>
+	</div>
+
+	<div id="admin">
+		<form name="busqueda" method="post"  action="">
+		<fieldset>
+		<legend id="ad" style="cursor:pointer;">Administrar Planilla</legend>
+		<div class="busqueda">
+			<ul>
+			<li>
+			<label><em>Filtrar por:</em></label>
+				<select name="cbo_busqueda" id="cbo_busqueda" required>
+					<option value="entrada">Hora entrada</option>
+					<option value="salida">Hora salida</option>
+					<option value="proyecto">Proyecto</option>
+				</select>
+				<input type="text" name="txt_buscar" id="txt_buscar"  />
+			</li>
+			<li>
+				<input name="btn_buscar" type="submit" class='btn info' value="Buscar" />
+			</li>
+		</ul>
+		</div>
+		<table id="sorter_com" class="tablesorter">
+
+	<table id="sorter" class="tablesorter">
+	<thead>
+	<th>Entrada</th><th>Salida</th><th>Proyecto</th><th colspan="2">accion</th>
+	</thead>
+	<?php if(isset($datos)): ?>
+
+		<?php foreach($datos as $plan):?>
+		<tr>
+			<td><?php echo $plan['entrada']; ?></td>
+			<td><?php echo $plan['salida']; ?></td>
+			<td><?php echo $plan['proyecto_id']; ?></td>
+			<td>
+				<img src="<?php echo base_url(); ?>public/images/Icono/pencil.png" 
+				onclick="action('up', <?php echo $plan['id']; ?>, 'planilla')" 
+				class="icono" 
+				title="Actualizar" />
+			</td>
+		</tr>
+		<?php endforeach; ?>
+	<?php endif; ?>
+	</table>
+	<!-- test pager-->
+	<div id="pager">
+		<ul id='grid_pager_action' class='list'>
+			<li>
+				<img src="<?php echo base_url(); ?>public/images/Icono/first.png" class="first"/> 
+			</li>
+			<li>
+				<img src="<?php echo base_url(); ?>public/images/Icono/prev.png" class="prev"/> 
+			</li>
+			<li>
+				<input type="text" class="pagedisplay"/>
+			</li>
+			<li>
+				<img src="<?php echo base_url(); ?>public/images/Icono/next.png" class="next"/>
+			</li>
+			<li>
+				<img src="<?php echo base_url(); ?>public/images/Icono/last.png" class="last"/>
+			</li>
+			<li>
+				<select class="pagesize">
+					<option selected="selected"  value="10">10</option>
+					<option value="20">20</option>
+					<option value="30">30</option>
+					<option  value="40">40</option>
+				</select>
+			</li>
+		</ul>
+	</div>
+	<!-- fin pager-->
+	</fieldset>
+	</form>
+	</div> <!-- fin admin-->
+</div>
+<!--</form>-->
+</div>

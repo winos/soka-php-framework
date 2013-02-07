@@ -1,0 +1,17 @@
+<div class="well">
+	<select name="pais" id="cbo_pais">
+		<option value="0">seleccione pais</option>
+		<option value="1">colombia</option>
+		<option value="2">argentina</option>
+	</select>
+
+	<input type='hidden' id='name' value='108'>
+
+	<select name="ciudad" id="cbo_ciudad">
+		<option value="0">seleccione ciudad</option>
+	</select>
+
+	<select name="barrio" id="cbo_barrio">
+		
+	</select>
+</div>

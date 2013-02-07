@@ -1,0 +1,6 @@
+<div class='well'>
+<?php if(!isset($_SESSION['autenticado'])): ?>
+<h2><?php echo $message; ?></h2>
+<a class='btn info' href='<?php echo base_url();?>login'>iniciar session</a>
+<?php endif; ?>
+</div>

@@ -1,0 +1,33 @@
+
+<div class="formulario">
+	<form id="frm_usuario" name="frm_usuario" method="post" action="">
+	<fieldset>
+	<legend>Recuperar Contraseña</legend>
+	<input type="hidden" name="id" value="<?php echo isset($con->id) ? $con->id : 0; ?>"required  />
+	<div>
+		<label>Email<em>*</em></label>
+		<input type="email" 
+			   name="email" 
+			   value="<?php echo isset($con->username) ? $con->username : ''?>"
+			   autofocus 
+			   maxlength="30" required />
+	</div>
+	<div>
+		<label>Pregunta Secreta<em>*</em></label>
+		<select name="pregunta">
+			<option value="1">mejor amigo de la infancia?</option>
+			<option value="2">nombre de tu primer profesor?</option>
+		</select> 
+	</div>
+	<div>
+		<label>Respuesta<em>*</em></label>
+		<input type="text" 
+			   name="respuesta" 
+			   value="<?php echo isset($con->password) ? $con->password : ''?>"
+			   autofocus 
+			   maxlength="30" required/>
+	</div>
+		<input type='submit' name="submit" class='btn info'id='guardar'  value="Enviar"/>
+	</fieldset>
+	</form>
+</div>

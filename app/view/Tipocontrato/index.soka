@@ -1,0 +1,121 @@
+
+<!-- informacion de transaccion-->
+<?php if (isset($messagge)):?>
+<div id ='info' title='Tipo Contrato.' redirec='tipocontrato'>
+<p><?php echo $messagge['error'];?></p>
+<?php if(isset($messagge['causas'])): ?>
+<ul>
+<?php foreach ($messagge['causas'] as $value): ?>
+<span class="ui-icon ui-icon-circle-check" style="float:left; margin:0 7px 50px 0;">
+</span><?php echo $value;?>
+<?php endforeach; ?>
+</ul>
+<?php endif;?>
+</div>
+<?php endif; ?>
+
+<?php if (isset($messagge2)):?>
+	<div id ='info' title='Tipo Contrato.' redirec='tipocontrato'>
+		<p><?php echo $messagge2['error'];?></p>
+	</div>
+<?php endif; ?>
+<div class="formulario">
+<div id="tabs">
+    <ul>
+        <li><a href="#admin">Administrar</a></li>
+        <li><a href="#crear">Crear</a></li>
+    </ul>
+  
+      <div id="crear">
+           <form id="frm_Tipocontrato" name="frm_Tipocontrato" method="post" action="">
+<fieldset>
+<legend>Registrar Tipo Contrato</legend>
+<div>
+<input type="hidden" name="id" value="<?php echo isset($con->id) ? $con->id : ''; ?>"required  />
+<label>Nombre<em>(Texto)*</em> </label>
+<!--pattern ="^[a-zA-Z]+$" :exrepsion regular para validar solo caracteres-->
+		<input type="text" 
+			   name="nombre" 
+			   pattern ="^[A-Za-zñÑ\s'']+$"
+			   value="<?php echo isset($con->nombre) ? $con->nombre : ''?>"
+			   autofocus maxlength="30"
+			    required/>
+	</div>
+<div>
+<label>Descripci&oacute;n <em>(Alfanumérico)</em> </label>
+<textarea name="descripcion" id="txt_descripcion"  />
+<?php echo isset($con->descripcion) ? $con->descripcion : ''?>
+</textarea>
+</div>
+              <input type='submit' name="submit" id='guardar' class='btn info'  value="Guardar"/>
+            </fieldset>
+            </form>
+      </div>
+      <div id="admin">
+            <form name="busqueda" method="post"  action="">
+            <fieldset>
+            <legend id="ad" style="cursor:pointer;">administrar Tipo Contrato</legend>
+
+<div class="busqueda">
+<ul>
+			<li>
+				<label>nombre<em>(texto)*</em></label>
+				<!--pattern ="^[a-zA-Z]+$" :exrepsion regular para validar solo caracteres-->
+				<input type="text" name="txt_buscar" id="txt_buscar"  pattern ="^[a-zA-Z]+$"/>
+			</li>
+			<li>
+				<input name="btn_buscar" type="submit"  class='btn info' value="Buscar" />
+			</li>
+		</ul>
+	</div>
+
+
+            <table id="sorter_com" class="tablesorter">
+            <thead>
+           <th>nombre</th><th>Descripción</th><th>Estado</th><th colspan="2">acción</th>
+            </thead>
+           <?php if(isset($datos)): ?>
+	<?php foreach($datos as $tipocontrato):?>
+	<tr>		
+		<td><?php echo $tipocontrato['nombre']; ?></td>
+		<td><?php echo $tipocontrato['descripcion']; ?></td>
+		<?php $est =   ($tipocontrato['estado'] == 1) ? 'activo': 'inactivo'; ?>
+		<?php $titulo= ($tipocontrato['estado'] == 1) ? 'Eliminar': 'Activar'; ?>
+		<?php $ti= ($tipocontrato['estado'] == 1) ? 'Modificar': 'Inabilitado'; ?>
+		<td>
+			<?php echo $est;?>
+			<?php $ico=($est=='activo')? 'mano':''; ?>
+		</td>
+		<td>
+			<!--genero la img on/off de acuerdo a lo que evalue $est-->
+			<img src="<?php echo base_url(); ?>public/images/Icono/<?php echo $est;?>.png" 
+			class="icono mano" 
+			onclick="action('del', <?php echo $tipocontrato['id']; ?>, 'tipocontrato','Tipo Contrato.')" 
+			title="Eliminar"/>
+			</td>
+	</tr>
+	<?php endforeach; ?>
+<?php endif; ?>
+</table>
+
+<!-- test pager-->
+<div id="pager">
+		<img src="<?php echo base_url(); ?>public/images/Icono/first.png" class="first"/> 
+		<img src="<?php echo base_url(); ?>public/images/Icono/prev.png" class="prev"/> 
+		<input type="text" class="pagedisplay" id='page'/>
+			<img src="<?php echo base_url(); ?>public/images/Icono/next.png" class="next"/>
+		<img src="<?php echo base_url(); ?>public/images/Icono/last.png" class="last"/>
+		<select class="pagesize" id='page'>
+			<option selected="selected"  value="10">10</option>
+			<option value="20">20</option>
+			<option value="30">30</option>
+			<option  value="40">40</option>
+		</select>
+</div>
+<!-- fin pager-->
+	</fieldset>
+	</form>
+	</div> <!-- fin admin-->
+</div>
+<!--</form>-->
+</div>

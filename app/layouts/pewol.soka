@@ -1,0 +1,38 @@
+<?php session_start(); ?>
+<!DOCTYPE html>
+<html lang="<?php echo \com\soka\Config::$LANGUAGE_APP; ?>">
+    <head>
+        <meta charset="<?php echo \com\soka\Config::$CHARSET_APP;?>" />
+        <title><?php echo isset($page_title) ? $page_title : 'Index > Pewol Macro s.a.s'; ?></title>
+        <!-- Load External CSS, Javascript Files-->
+        <script src="<?php echo  $data_layout['js_default']['jquery']; ?>"></script>
+        <!-- include file javaScript user -->
+        <?php if(count($data_layout['js_include'])): ?>
+        <?php foreach ($data_layout['js_include'] as $value) :?>
+        <script  src="<?php echo $value;?>" ></script>
+        <?php endforeach;?>
+        <?php endif; ?>
+        <!-- include file Css user -->
+        <?php if(count($data_layout['css_include'])): ?>
+        <?php foreach ($data_layout['css_include'] as $value) :?>
+        <link rel="stylesheet" href= "<?php echo $value; ?>" media="screen"  />
+        <?php endforeach ;?>
+        <?php endif; ?>
+    </head>
+    <body>
+        <div id='wrapper' class="container">
+            <?php \com\soka\View::snippet('pewol/header'); ?>
+            <?php if( isset($_SESSION['autenticado']) && isset($_SESSION['user'])): ?>
+                <div id="menu" class='rounded'>
+                    <?php echo \com\soka\View::showMenu();?>
+                </div>
+            <?php endif; ?>
+
+            <div id="content" class='rounded'>
+                <?php \com\soka\View::content();?>
+            </div>
+
+            <?php \com\soka\View::snippet('pewol/footer'); ?>
+        </div>
+    </body>
+</html>

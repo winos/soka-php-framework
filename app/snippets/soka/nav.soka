@@ -1,0 +1,88 @@
+<!-- menu -->
+    <div id="menu" class='rounded'>
+    <ul id="nav">
+        <li><a href="<?php echo base_url(); ?>">Inicio</a></li>
+		<!--empleado-->
+		<li><a>Trabajador</a>
+			<ul class="submenu">
+				<li><a href="<?php echo base_url(); ?>">Comisi&oacute;n</a></li>
+				<li><a href="<?php echo base_url(); ?>">Novedad</a></li>
+				<li><a href="<?php echo base_url(); ?>trabajador/">Registrar</a></li>
+				<li><a href="<?php echo base_url(); ?>">Salidas</a></li>
+				
+			</ul>
+		</li>
+				<!--nomina-->
+		<li><a href="#">N&oacute;mina</a></li>				
+               			
+		<!--proyectos-->		
+   <li><a href="#">Proyecto</a>
+   		<ul class="submenu">
+			<li><a href="?vista=vw_sedes&pagina=ver">Administrar</a></li>
+			<li><a href="?vista=vw_sedes&pagina=registrar">Registrar</a></li>		
+		</ul>
+	</li>			
+        
+		<!--liquidacion-->
+        <li><a href="#">Liquidaci&oacute;n</a>
+        	<ul class="submenu">
+                <li><a href="?vista=vw_cesantia&pagina=registrar">Cesant&iacute;as</a></li>
+                <li><a href="?vista=vw_concepto&pagina=registrar">Inter&eacute;s Cesant&iacute;a</a></li>
+                <li><a href="?vista=vw_concepto&pagina=registrar">Prima</a></li>
+				<li><a href="?vista=vw_novedad&pagina=registrar">Vacaciones</a></li>
+            </ul>	
+        </li>
+		
+		<!--reportes-->
+        <li><a href="#">Reportes</a>
+			<ul class="submenu">
+		        <li><a href="?vista=vw_reportes&pagina=egresos">Egresos</a></li>
+		        <li><a href="?vista=vw_reportes&pagina=liquidacion">Liquidaci&oacute;n</a></li>
+				<li><a href="?vista=vw_reportes&pagina=Nomina_admi">N&oacutemina Administrativa</a></li>
+				<li><a href="?vista=vw_reportes&pagina=Nomina_opera">N&oacutemina Operativa</a></li>
+				<li><a href="?vista=vw_reportes&pagina=operadores">Operadora</a></li>
+			</ul>
+		</li>
+		
+		
+        <!--prestamos-->
+        
+		<li><a href="#">Pr&eacute;stamo</a>
+			<ul class="submenu">
+                <li><a href="?vista=vw_abono&pagina=registrar">Abono</a></li>
+                <li><a href="?vista=vw_prestamo&pagina=registrar">Registrar</a></li>
+            </ul>
+		</li>	
+		<!--sistema-->
+
+		<li><a href="#">Configuraci&oacute;n</a>
+        	<ul class="submenu">
+        	<li><a href="">Tipos</a>
+        		<ul class="subsubmenu">
+        			<li><a href="<?php echo base_url(); ?>Tipoapropiacion/">Apropiaci&oacute;n</a></li>
+        			<li><a href="<?php echo base_url(); ?>Tipoconcepto/">Concepto</a></li>
+					<li><a href="<?php echo base_url(); ?>Tipocontrato/">Contrato</a></li>
+					<li><a href="<?php echo base_url(); ?>Tipoempleado/">Empleado</a></li>
+					<li><a href="<?php echo base_url(); ?>Tiponovedad/">Novedad</a></li>
+					
+				
+					
+        	</ul>
+        </li>
+			        <li><a href="?vista=vw_entidad&pagina=registrar">Administrativa</a>
+					<li><a href="?vista=vw_cargo&pagina=registrar">Cargo</a></li>	
+					<li><a href="<?php echo base_url(); ?>ciudad/">Ciudad</a></li>
+					<li><a href="<?php echo base_url(); ?>comision/">Comisi&oacute;n</a>
+					<li><a href="<?php echo base_url(); ?>concepto/">Concepto</a></li>
+					<li><a href="<?php echo base_url(); ?>datosempresa/">Datos Empresa</a></li>
+					<li><a href="<?php echo base_url(); ?>hora/">Hora</a></li>
+					<li><a href="<?php echo base_url(); ?>Operador/">Operador</a></li>
+					<li><a href="<?php echo base_url(); ?>rol/">Rol</a></li>
+					<li><a href="<?php echo base_url(); ?>usuario/">Usuario</a></li>
+            </ul>	
+        </li>
+			<li><a href="vw_ayuda/help.html">Ayuda</a></li>	
+    </ul>	
+</div>
+<div id="content" class='rounded'>
+

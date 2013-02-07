@@ -1,0 +1,180 @@
+<!-- informacion de transaccion-->
+<?php if (isset($messagge)):?>
+<div id ='info' title='Concepto.' redirec='concepto'>
+<p><span class="ui-icon ui-icon-info" style="float:left; margin:4px 7px 50px 0;">
+</span><?php echo $messagge['error'];?></p>
+<?php if(isset($messagge['causas'])): ?>
+<ul>
+<?php foreach ($messagge['causas'] as $value): ?>
+<span class="ui-icon ui-icon-circle-check" style="float:left; margin:0 7px 50px 0;">
+</span><?php echo $value;?>
+<?php endforeach; ?>
+</ul>
+<?php endif;?>
+</div>
+<?php endif; ?>
+
+<?php if (isset($messagge2)):?>
+<div id ='info' title='Concepto.' redirec='concepto'>
+<p><span class="ui-icon ui-icon-info" style="float:left; margin:4px 7px 50px 0;">
+</span><?php echo $messagge2['error'];?></p>
+<?php if(isset($messagge2['causas'])): ?>
+<ul>
+<?php foreach ($messagge2['causas'] as $value): ?>
+<span class="ui-icon ui-icon-circle-check" style="float:left; margin:0 7px 50px 0;">
+</span><?php echo $value;?>
+<?php endforeach; ?>
+</ul>
+<?php endif;?>
+</div>
+<?php endif; ?>
+
+
+<div class="formulario">
+<div id="tabs">
+    <ul>
+        <li><a href="#admin">Administrar</a></li>
+        <li><a href="#crear">Crear</a></li>
+    </ul>
+  
+	<div id="crear">
+		<form id="frm_concepto" name="frm_concepto" method="post" action="">
+		<fieldset>
+		<legend>Registrar Concepto</legend>
+		<input type="hidden" name="id" value="<?php echo isset($con->id) ? $con->id : 0; ?>"required  />
+		<div>
+
+		<div>
+			<label>Nombre<em>(Texto) *</em></label>
+			<!--pattern ="^[a-zA-Z]+$" :exrepsion regular para validar solo caracteres-->
+			<input type="text" 
+				   name="nombre" 
+				   pattern ="^[a-zA-Z-ñÑáéíóúÁÉÍÓÚ\]+$"
+				   value="<?php echo isset($con->nombre) ? $con->nombre : ''?>"
+				   autofocus 
+				   maxlength="30" required/>
+		</div>
+		<div>
+			<label>Valor<em>(Número) *</em></label>
+			<!--pattern ="/([0][1-9]|[1-2][0-9]|[3][0-1])-([0][1-9]|[1][0-2])-([2][0][0][7-9])/" :expresion regular para validar solo fechas-->
+			<input type="text" 
+				   name="valor" 				   
+				   value="<?php echo isset($con->valor) ? $con->valor : ''?>"
+				   autofocus 
+				   maxlength="11" required/>
+		</div>
+		<div>
+			<label>Salario<em>(Número) *</em></label>
+			<!--pattern ="/([0][1-9]|[1-2][0-9]|[3][0-1])-([0][1-9]|[1][0-2])-([2][0][0][7-9])/" :expresion regular para validar solo fechas-->
+			<input type="text" 
+				   name="salario" 				   
+				   value="<?php echo isset($con->salario) ? $con->salario : ''?>"
+				   autofocus 
+				   maxlength="30" required/>
+		</div>
+		<div>
+			<label>Descripción</label>
+			<!--pattern ="/([0][1-9]|[1-2][0-9]|[3][0-1])-([0][1-9]|[1][0-2])-([2][0][0][7-9])/" :expresion regular para validar solo fechas-->
+			<input type="text" 
+				   name="descripcion" 
+				   
+				   value="<?php echo isset($con->descripcion) ? $con->descripcion : ''?>"
+				   autofocus 
+				   maxlength="30"/>
+		</div>
+		<div>
+			<div>
+			<label>Tipo Concepto<em><a href='<?php echo base_url()?>tipoconcepto'>(crear nuevo)</a>*</em></label>
+			<?php echo $list_tipoconcepto; ?>
+		</div>
+			<input type='submit' name="submit" id='guardar' class='btn info' value="Guardar"/>
+		</fieldset>
+		</form>
+	</div>
+	<div id="admin">
+
+		<form name="busqueda" method="post" action="">
+		<fieldset>
+		<legend id="ad" style="cursor:pointer;">Administrar Conceptos</legend>
+
+<div class="busqueda">
+			<!-- lista para item de busquedad-->
+			<ul>
+				<li>
+					<label>nombre<em>(texto)*</em></label>
+					<!--pattern ="^[a-zA-Z]+$" :exrepsion regular para validar solo caracteres-->
+					<input type="text" name="txt_buscar" id="txt_buscar"  pattern ="^[a-zA-Z-ñÑáéíóúÁÉÍÓÚ\]+$"/>
+				</li>
+				<li>
+					<input name="btn_buscar" type="submit" class='btn info'  value="Buscar" />
+				</li>
+			</ul>
+		</div>
+
+		<table id="sorter" class="tablesorter">
+		<thead>
+		<th>nombre</th><th>Valor</th><th>Salario</th><th>Descripción</th><th>Tipo Concepto</th><th>Estado</th><th colspan='2'>Acción</th>
+		</thead>
+		<?php if(isset($datos)): ?>
+			<?php foreach($datos as $conc):?>
+			<tr>
+				<td><?php echo utf8_encode($conc['nombre']); ?></td>
+				<td><?php echo $conc['valor']; ?></td>
+				<td><?php echo $conc['salario']; ?></td>
+				<td><?php echo $conc['descripcion']; ?></td>								
+				<td><?php echo $conc['tipoconcepto']; ?></td>
+				<?php $est =   ($conc['estado'] == 1) ? 'activo': 'inactivo'; ?>
+        <?php $titulo= ($conc['estado'] == 1) ? 'Eliminar': 'Activar'; ?>
+        <?php $ti= ($conc['estado'] == 1) ? 'Modificar': 'Inabilitado'; ?>
+      <td>
+         <?php echo $est;?>
+         <?php $ico=($est=='activo')? 'mano':''; ?>
+      </td>
+      <td>
+         
+         
+         <!-- en el atributo title comenzar Capitalizar-->
+         <img src="<?php echo base_url(); ?>public/images/Icono/pencil.png" 
+         onclick="action('up', <?php echo $conc['id']; ?>, 'concepto')" 
+
+         class="icono" 
+         title="Actualizar"/>
+      </td>
+      <td>
+			<!--genero la img on/off de acuerdo a lo que evalue $est-->
+			<img src="<?php echo base_url(); ?>public/images/Icono/<?php echo $est;?>.png" 
+			class="icono mano" 
+			onclick="action('del', <?php echo $conc['id']; ?>, 'concepto','Concepto. '  )" 
+			title='<?php echo $titulo; ?>'/>
+			</td>
+	</tr>
+	<?php endforeach; ?>
+<?php endif; ?>
+</table>
+
+		<!-- test pager-->
+
+		<div id="pager">
+			
+					<img src="<?php echo base_url(); ?>public/images/Icono/first.png" class="first"/> 
+					<img src="<?php echo base_url(); ?>public/images/Icono/prev.png" class="prev"/> 
+					<input type="text" class="pagedisplay"/>
+						<img src="<?php echo base_url(); ?>public/images/Icono/next.png" class="next"/>
+					<img src="<?php echo base_url(); ?>public/images/Icono/last.png" class="last"/>
+					<select class="pagesize">
+						<option selected="selected"  value="10">10</option>
+						<option value="20">20</option>
+						<option value="30">30</option>
+						<option  value="40">40</option>
+					</select>
+		<	</div>
+		<!-- fin pager-->
+	</fieldset>
+	</form>
+	</div> <!-- fin admin-->
+</div>
+<!--</form>-->
+</div>
+
+	
+

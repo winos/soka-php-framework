@@ -1,0 +1,196 @@
+<!-- informacion de transaccion-->
+<?php if (isset($messagge)):?>
+<div id ='info' title='Salida.' redirec='salida'>
+<p><span class="ui-icon ui-icon-info" style="float:left; margin:4px 7px 50px 0;">
+</span><?php echo $messagge['error'];?></p>
+<?php if(isset($messagge['causas'])): ?>
+<ul>
+<?php foreach ($messagge['causas'] as $value): ?>
+<span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 50px 0;">
+</span><?php echo $value;?>
+<?php endforeach; ?>
+</ul>
+<?php endif;?>
+</div>
+<?php endif; ?>
+<?php if (isset($messagge2)):?>
+	<div id ='info' title='Salida.' redirec='salida'>
+		<p><?php echo $messagge2['error'];?></p>
+	</div>
+<?php endif; ?>
+
+
+
+<div class="formulario">
+<div id="tabs">
+    <ul>
+        <li><a href="#admin">Administrar</a></li>
+        <li><a href="#crear">Crear</a></li>
+    </ul>
+  
+	<div id="crear">
+		<form id="frm_salida" name="frm_salida" method="post" action="">
+    <fieldset>
+		<legend>registrar Salida</legend>
+		<div>
+		<input type="hidden" name="id"  value="<?php echo isset($con->id) ? $con->id : 0; ?>"required />
+
+<div>
+			<label>Trabajador<em><a href='<?php echo base_url()?>trabajador'>(Crear nuevo)</a></em></label>
+			<?php echo $list_Trab; ?>
+		</div>
+
+
+<div>
+<label>Fecha<em>*</em> </label>
+<input type="text" name="fecha" value="<?php echo isset($con->fecha) ? $con->fecha : ''?>"required  class='fecha'/>
+</div>
+
+<div>
+<label>Tipo<em>* (Texto)</em></label>
+<input type="text" name="tipo" 
+value="<?php echo isset($con->tipo) ? $con->tipo : ''?>"
+maxlength="45"required  />
+</div>
+
+<div>
+<label>Manera<em>* (Texto)</em></label>
+<input type="text"name="manera" 
+value="<?php echo isset($con->manera) ? $con->manera : ''?>"
+maxlength="45" required  />
+</div>
+
+
+
+
+<label> Indemnización<em>*</em></label>
+<select name="indemnizacion" id="cbo_indemnizacion" required>
+<option value="1">Si</option>
+<option value="0">No</option>
+</select>
+</div>
+
+<div>
+<label>Fecha liquidación<em>*</em> </label>
+<input type="text" name="fecha_liquidacion" value="<?php echo isset($con->fecha_liquidacion) ? $con->fecha_liquidacion : ''?>"required class='fecha' />
+</div>
+
+<div>
+<label>Valor Semana en Caja<em>*(Numerico)</em> </label>
+<input type="text" 
+			   name="valor_semanaencaja" 
+			   pattern ="^[0-9]+$"
+			   value="<?php echo isset($con->valor_semanaencaja) ? $con->valor_semanaencaja : ''?>"
+			   class='num'
+			   autofocus required/>
+	</div>
+
+	
+<div>
+<input type='submit' name="submit" id='guardar' class='btn info' value="Guardar"/>
+		</fieldset>
+		</form>
+
+	</div>
+	<div id="admin">
+		<form name="busqueda" method="post"  action="">
+		<fieldset>
+		<legend id="ad" style="cursor:pointer;">administrar Salida</legend>
+		<div class="busqueda">
+			<!-- lista para item de busquedad-->
+			<ul>
+			<li>
+			<label><em>Filtrar por:</em></label>
+				<select name="cbo_busqueda" id="cbo_busqueda" required>
+					<option value="fecha">Fecha</option>
+					<option value="fecha_liquidacion">Fecha liquidación</option>
+				</select>
+
+				<input type="text" name="txt_buscar" id="txt_buscar"  />
+			</li>
+			<li>
+				<input name="btn_buscar" type="submit" class='btn info' value="Buscar" />
+			</li>
+		</ul>
+		</div>
+		<table id="sorter_com" class="tablesorter">
+
+<thead>
+<th>fecha</th><th>tipo</th><th>manera</th><th>indemnizacion</th><th>fecha liquidaciòn</th>
+<th>valor semana en caja</th><th>trabajador</th><th>Estado</th><th colspan="2">acción</th>
+</thead>
+
+<?php if(isset($datos)): ?>
+
+	<?php foreach($datos as $sal):?>
+	<tr>
+		<td><?php echo $sal['fecha']; ?></td>
+		<td><?php echo $sal['tipo']; ?></td>
+		<td><?php echo $sal['manera']; ?></td>
+		<td><?php echo $sal['indemnizacion']; ?></td>
+		<td><?php echo $sal['fecha_liquidacion']; ?></td>
+        <td><?php echo $sal['valor_semanaencaja']; ?></td>
+        <td><?php echo $sal['trab_id']; ?></td>
+		<?php $est =   ($sal['estado'] == 1) ? 'activo': 'inactivo'; ?>
+		<?php $titulo= ($sal['estado'] == 1) ? 'Eliminar': 'Activar'; ?>
+		<?php $ti= ($sal['estado'] == 1) ? 'Modificar': 'Inabilitado'; ?>
+		<td>
+			<?php echo $est;?>
+			<?php $ico=($est=='activo')? 'mano':''; ?>
+		</td>
+		<td>
+			
+			<!-- en el atributo title comenzar Capitalizar-->
+			<img src="<?php echo base_url(); ?>public/images/Icono/Modify/<?php echo $est;?>.png" 
+			onclick="action('up', <?php echo $sal['id']; ?>, 'salida','Salida. ','<?php echo $est;?>')" 
+
+			class="icono <?php echo $ico; ?>" 
+			title='<?php echo $ti; ?>'/>
+		</td>
+			<td>
+			<!--genero la img on/off de acuerdo a lo que evalue $est-->
+			<img src="<?php echo base_url(); ?>public/images/Icono/<?php echo $est;?>.png" 
+			class="icono mano" 
+			onclick="action('del', <?php echo $sal['id']; ?>, 'salida','Salida.')" 
+			title="Eliminar"/>
+			</td>
+	</tr>
+	<?php endforeach; ?>
+<?php endif; ?>
+</table>
+
+<!-- test pager-->
+<div id="pager">
+			<ul id='grid_pager_action' class='list'>
+				<li>
+					<img src="<?php echo base_url(); ?>public/images/Icono/first.png" class="first"/> 
+				</li>
+				<li>
+					<img src="<?php echo base_url(); ?>public/images/Icono/prev.png" class="prev"/> 
+				</li>
+				<li>
+					<input type="text" class="pagedisplay" id='page' />
+				</li>
+				<li>
+					<img src="<?php echo base_url(); ?>public/images/Icono/next.png" class="next"/>
+				</li>
+				<li>
+					<img src="<?php echo base_url(); ?>public/images/Icono/last.png" class="last"/>
+				</li>
+				<li>
+					<select class="pagesize" id='page' >
+						<option selected="selected"  value="10">10</option>
+						<option value="20">20</option>
+						<option value="30">30</option>
+						<option  value="40">40</option>
+					</select>
+				</li>
+			</ul>
+		</div>
+		<!-- fin pager-->
+	</fieldset>
+	</form>
+	</div> <!-- fin admin-->
+</div>
+<!--</form>-->
+</div>

@@ -1,0 +1,44 @@
+<div class="busqueda">
+<label> tipo 
+<select name="slc_busqueda_concepto">
+<option value="0">devengado</option>
+<option value="0">deducciones</option>
+<option value="0">apropiacione</option>
+</select>
+</label>
+<label>nombre<em>*</em><input type="text" name="txt_nombre" required pattern='[a-z]' /></label>
+
+
+<input name="btn_guardar" type="button" id="btn_guardar" class="botonBuscar" value="buscar" />
+
+
+</div>
+<hr />
+
+<table>
+<thead>
+<th>Tipo de concepto</th><th>nombre</th><th>Descripción</th><th>Monto</th><th>salario</th><th>Estado</th><th colspan="2">accion</th>
+</thead>
+<?php if(isset($datos)): ?>
+<h3>hay un total de <?php echo count($datos); ?></h3>
+	<?php foreach($datos as $concepto):?>
+	<tr>
+		<td><?php echo $concepto['tipo_concepto_id']; ?></td>
+		<td><?php echo $concepto['nombre']; ?></td>
+		<td><?php echo $concepto['descripcion']; ?></td>
+		<td><?php echo $concepto['valor']; ?></td>
+		<td><?php echo $concepto['salario']; ?></td>
+		<td><?php echo $concepto['estado']; ?></td>
+		<td><img src="<?php echo base_url(); ?>/public/images/Icono/pencil.png" onclick="updateConcepto (<?php echo $concepto['id']; ?>)" style="cursor:pointer;"class="icono" title="actualizar"/></td><td><img src="<?php echo base_url(); ?>/public/images/Icono/delete.png"  class="icono" alt="eliminar"/></td>
+	</tr>
+	<?php endforeach; ?>
+<?php endif; ?>
+</table>
+
+<hr />
+
+            
+</fieldset>
+</form>
+</div>
+

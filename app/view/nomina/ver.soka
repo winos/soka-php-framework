@@ -1,0 +1,123 @@
+<div class="well">
+<pre><?php  echo print_r($data, false); ?></pre>
+</div>
+<div>
+<?php  if(isset($data)): ?>
+<table class="tablesorter" width='100%'>
+	<thead> 
+		<th colspan="6">CONSTRUCCIONES MACRO S.A.S. <span class='label success'><?php echo $data['proyecto']; ?></span></th>
+			<th colspan="8">PERIODO DEL <span class='label important'><?php echo $data['fecha_inicio'] ?> </span> AL <span class='label important'><?php echo $data['fecha_fin'] ?> </span></th>
+		<tr>
+			<th colspan="5">DATOS PERSONALES</th>
+			<th colspan="4">DEVENGADO</th>
+			<th colspan="4">DEDUCCIONES</th>
+			<th rowspan='2' width='50'>NETO A PAGAR</th>
+		</tr>
+		<tr>
+			<th width="76" height='20'>C&eacute;dula</th>
+			<th width="50" height='20'>Nombres</th>
+			<th width="62" height='20'>Apellidos</th>
+			<th width="62" height='20'>Cargo</th>
+			<th width="62" height='20'>Salario Base</th>
+			<th width="65" height='20'>extras</th>
+			<th width="65" height='20'>auxilio trans. </th>
+			<th width="65" height='20'>comision</th>
+			<th width="65" height='20'>Total Devengado</th>
+			<th width="65">salud</th>
+			<th width="65">pension</th>
+			<th width="65" >prestamo</th>
+			<th colspan="1"  width="76">Total Deduccion</th>
+		</tr>
+	</thead>
+	<?php 
+		$total_extras = 0;
+		$total_comision = 0;
+		$total_aux = 0; 
+		$total_devengado2 = 0;
+		$total_deduccion = 0;
+		$total_sal = 0;
+		$total_salud =0;
+		$total_pension = 0;
+	?>
+	<?php foreach ($data['info_nomina'] as $value) :?>
+	<tr>
+		<td><?php echo $value['datosPersonales']['num_documento']; ?></td>
+		<td><?php echo $value['datosPersonales']['nombre']; ?></td>
+		<td><?php echo $value['datosPersonales']['apellido']; ?></td>
+		<td><?php echo $value['datosPersonales']['cargo']; ?></td>
+		<td><?php echo number_format($value['salario']); ?></td>
+
+		<?php $comision = isset( $value['conceptos']['comision'])? $value['conceptos']['devengado:comision']: 0; ?>
+		<?php $total_sal += $value['salario']; ?>
+		<?php $total_salud += $value['conceptos']['deduccion:salud']; ?>
+		<?php $total_extras += $value['conceptos']['devengado:extras'] ; ?>
+		<?php $total_aux += $value['conceptos']['devengado:auxilio de transporte'];?>
+		<?php $total_pension +=   $value['conceptos']['deduccion:pension']?>
+		<?php $total_comision +=  $comision;?>
+
+		<?php $total_devengado = $value['salario']+$value['conceptos']['devengado:extras'] + $value['conceptos']['devengado:auxilio de transporte'] +  $comision; ?>
+		<?php $total_devengado2 += $total_devengado; ?>
+		<?php $total_deduccion += $value['conceptos']['deduccion:salud'] +  $value['conceptos']['deduccion:pension']; ?>
+		<?php $neto = $total_devengado-$total_deduccion; ?>
+		<td><?php echo number_format($value['conceptos']['devengado:extras']); ?></td>
+		<td><?php echo number_format($value['conceptos']['devengado:auxilio de transporte']); ?></td>
+		<td><?php echo $comision; ?></td>	
+		<td><?php echo number_format($total_devengado); ?></td>
+		<td><?php echo number_format($value['conceptos']['deduccion:salud']); ?></td>
+		<td><?php echo number_format( $value['conceptos']['deduccion:pension']); ?></td>
+		<td>0</td>
+		<td><?php echo number_format($total_deduccion); ?></td>	
+		<td><?php echo number_format($neto); ?></td>
+	</tr>
+	<?php endforeach; ?>							
+	<tr  colspan="7" >
+		<td colspan="4" align="right"  ><b>Total:</b></td>
+		<td><?php echo number_format($total_sal); ?></td>
+		<td><?php echo number_format($total_extras); ?></td>
+		<td><?php echo number_format($total_aux); ?> </td>
+		<td><?php echo number_format($total_comision); ?></td>
+		<td><?php echo number_format($total_devengado2); ?> </td>
+		<td><?php echo number_format($total_salud); ?> </td>
+		<td><?php echo number_format($total_pension); ?> </td>
+		<td></td>
+		<td></td>
+		<td></td>
+	</tr>
+
+	<tr>
+		<thead> 
+		<th colspan="3">PARAFISCALES</th>
+		<th rowspan='2'>total parafiscal</th>
+		<th colspan="6">APROPIACIONES</th>
+		<tr>
+			<th>SENA</th>
+			<th>ICBF</th>
+			<th>CCF</th>
+		
+			<th>salud</th>
+			<th>pension</th>
+			<th>Vacaciones</th>	
+			<th>Interes censatias.</th> 
+			<th>Cesantias</th>
+			<th>Prima</th>
+		</tr>
+		</thead>
+	</tr>
+	<?php  $total_parf = 0;
+
+	$total_parf += $data['parafiscal']['icbf'] + $data['parafiscal']['ccf'] + $data['parafiscal']['sena']?>
+	<tr>
+		<td><?php echo number_format($data['parafiscal']['sena']); ?> </td>
+			<td><?php echo number_format($data['parafiscal']['icbf']); ?> </td>
+			<td><?php echo number_format($data['parafiscal']['ccf']); ?> </td>
+			<td><?php echo number_format($total_parf); ?> </td>
+		<td><?php echo number_format($value['conceptos']['apropiacion:salud']); ?> </td>
+		<td><?php echo number_format($value['conceptos']['apropiacion:pension']); ?> </td>
+		<td><?php echo number_format($value['conceptos']['apropiacion:vacaciones']); ?> </td>
+		<td><?php echo number_format($value['conceptos']['apropiacion:interes cesantias']); ?> </td>
+		<td><?php echo number_format($value['conceptos']['apropiacion:cesantias']); ?> </td>
+		<td>15000</td>
+	</tr>
+</table>
+<?php  endif; ?>
+</div>

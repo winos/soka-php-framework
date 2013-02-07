@@ -1,0 +1,34 @@
+
+<div class="formulario login">
+<form id="frm_login" name="frm_login" method="post" action="">
+<input type='hidden' name='login' value='1'>
+	<fieldset>
+	<legend>Iniciar sesión</legend>
+	<p><span class="label warning">Los campos marcados con(*) son requeridos.</span></p>
+	<div>
+		<label>Usuario<em>*</em></label>
+		<input type="text" 
+			   name="user" 
+			   value=""
+			   autofocus 
+			   maxlength="30" required/>
+	</div>
+	<div>
+		<label>Contraseña<em>*</em></label>
+			<input type="password" 
+				   name="password" 
+				   value=""
+				   autofocus 
+				   maxlength="30" required />
+	</div>
+<?php if(isset($message)):?>
+<p class='label important'><?php echo $message ?></p>
+<?php endif; ?>	
+	<hr/>
+		<div id='action_login'>
+                    <input class="btn info" type="submit" name='submit' value="Ingresar">
+                    <a href='' class='recordar'>¿Ha olvidado su contraseña?</a>
+		</div>
+	</fieldset>
+	</form>
+</div>

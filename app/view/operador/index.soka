@@ -1,0 +1,125 @@
+<!-- informacion de transaccion-->
+<?php if (isset($messagge)):?>
+<div id ='info' title='Operador.' redirec='operador'>
+<p><?php echo $messagge['error'];?></p>
+<?php if(isset($messagge['causas'])): ?>
+<ul>
+<?php foreach ($messagge['causas'] as $value): ?>
+<span class="ui-icon ui-icon-circle-check" style="float:left; margin:0 7px 50px 0;">
+</span><?php echo $value;?>
+<?php endforeach; ?>
+</ul>
+<?php endif;?>
+</div>
+<?php endif; ?>
+
+<?php if (isset($messagge2)):?>
+	<div id ='info' title='Operador.' redirec='operador'>
+		<p><?php echo $messagge2['error'];?></p>
+	</div>
+<?php endif; ?>
+<div class="formulario">
+<div id="tabs">
+    <ul>
+        <li><a href="#admin">Administrar</a></li>
+        <?php //if(com\lib\Session::accesView('user')) :?>
+        <li><a href="#crear">Crear</a></li>
+        <?php //endif; ?>
+    </ul>
+   <?php //if(com\lib\Session::accesView('user')) :?>
+	<div id="crear">
+		<form id="frm_operador" name="frm_operador" method="post" action="">
+		<fieldset>
+		<legend>registrar Operador</legend>
+		<input type="hidden" name="id" value="<?php echo isset($con->id) ? $con->id : 0; ?>"required  />
+		<div>
+			<label>Nombre<em>(Texto)*</em></label>
+			<input type="text" 
+				   name="nombre" 
+				   pattern ="^[A-Za-zñÑ\s '']+$"
+				   value="<?php echo isset($con->nombre) ? $con->nombre : ''?>"
+				   autofocus 
+				   maxlength="45" required/>
+		</div>
+			<input type='submit' class="btn info" name="submit" id='guardar'  value="Guardar"/>
+		</fieldset>
+		</form>
+	</div>
+    <?php //endif; ?>
+	<div id="admin">
+		<form name="busqueda" method="post"  action="">
+		<fieldset>
+		<legend id="ad" style="cursor:pointer;">administrar Operador</legend>
+		<div class="busqueda">
+			<!-- lista para item de busquedad-->
+			<ul>
+				<li>
+					<label>nombre<em>(texto)*</em></label>
+					<!--pattern ="^[a-zA-Z]+$" :exrepsion regular para validar solo caracteres-->
+					<input type="text" name="txt_buscar_tn" id="txt_buscar_tn"  pattern ="^[a-zA-Z]+$"/>
+				</li>
+				<li>
+					<input name="btn_buscar" type="submit" class="btn info" value="Buscar" />
+				</li>
+			</ul>
+		</div>
+		<table id="sorter" class="tablesorter">
+		<thead>
+		<th>nombre</th><th>Estado</th><th>acción</th>
+		</thead>
+		<?php if(isset($datos)): ?>
+			<?php foreach($datos as $Operador):?>
+			<tr>
+				<td><?php echo $Operador['nombre']; ?></td>
+				<?php $est= ($Operador['estado'] == 1) ? 'Activo': 'Inactivo'; ?>
+				<?php $titulo= ($Operador['estado'] == 1) ? 'Eliminar': 'Activar'; ?>
+				<td>
+					<?php echo $est;?>
+				</td>
+				<td>
+			<!--genero la img on/off de acuerdo a lo que evalue $est-->
+			<img src="<?php echo base_url(); ?>public/images/Icono/<?php echo $est;?>.png" 
+			class="icono mano" 
+			onclick="action('del', <?php echo $Operador['id']; ?>, 'operador','Operador.')" 
+			title='<?php echo $titulo; ?>'/>
+			</td>
+			</tr>
+			<?php endforeach; ?>
+			<?php endif; ?>
+		</table>
+		<!-- test pager-->
+
+		<div id="pager">
+			<ul id='grid_pager_action' class='list'>
+				<li>
+					<img src="<?php echo base_url(); ?>public/images/Icono/first.png" class="first"/> 
+				</li>
+				<li>
+					<img src="<?php echo base_url(); ?>public/images/Icono/prev.png" class="prev"/> 
+				</li>
+				<li>
+					<input type="text" class="pagedisplay"/>
+				</li>
+				<li>
+					<img src="<?php echo base_url(); ?>public/images/Icono/next.png" class="next"/>
+				</li>
+				<li>
+					<img src="<?php echo base_url(); ?>public/images/Icono/last.png" class="last"/>
+				</li>
+				<li>
+					<select class="pagesize" id="page" name="page">
+						<option selected="selected"  value="10">10</option>
+						<option value="20">20</option>
+						<option value="30">30</option>
+						<option  value="40">40</option>
+					</select>
+				</li>
+			</ul>
+		</div>
+		<!-- fin pager-->
+	</fieldset>
+	</form>
+	</div> <!-- fin admin-->
+</div>
+<!--</form>-->
+</div>
