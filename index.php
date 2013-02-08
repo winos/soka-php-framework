@@ -8,9 +8,6 @@ defined('APPLICATION_PATH') || define('APPLICATION_PATH',  str_replace('\\', '/'
 define('EXT', '.php');
 define('EXT_EX', '.xlsx');
 
-define('TPL_NOM', APPLICATION_PATH."/plantilla/nom_obrera.xlsx");
-define('TPL_NOM_ADM', APPLICATION_PATH."/plantilla/nom_admin.xlsx");
-
 define('TPL', '.soka');
 define('JS', '.js');
 defined('ST') || define('ST', '.css');
